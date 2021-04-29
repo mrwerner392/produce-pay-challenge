@@ -7,14 +7,13 @@ const evolve = grid => {
   }
 
   // iterate through each element of nxn the input grid
-    // first check value, then check which rule applies for that value (using surrounding input grid values)
-    // determine value for new grid
-    // update appropriate element in new grid
   for (let i = 0; i < grid.length; i++) {
     for (let j = 0; j < grid.length; j++) {
+      // get current grid element value
       const currentVal = grid[i][j]
+      // get necessary data about neighbor elements
       const { neighbors, totalNeighborCount } = getNeighborData(grid, i, j)
-      
+      // use element value and neighbor data to set the new grid element value
       newGrid[i][j] = getNewVal(currentVal, neighbors, totalNeighborCount)
     }
   }
@@ -23,11 +22,12 @@ const evolve = grid => {
   return newGrid
 }
 
+// return a list of the neighboring element values as well as the count of existing (non-empty) neighbors
 const getNeighborData = (grid, currentRow, currentIndex) => {
   const neighbors = []
   let totalNeighborCount = 0
 
-  // iterate through surrounding indexes and add to list of neighbors
+  // iterate through the +- 1 row/column elements and update neighbor variables accordingly
   for (let k = -1; k <= 1; k++) {
     for (let l = -1; l <= 1; l++) {
       if (k === 0 && l === 0) continue // this is the current element, ignore
@@ -45,6 +45,7 @@ const getNeighborData = (grid, currentRow, currentIndex) => {
   return { neighbors, totalNeighborCount }
 }
 
+// return the new grid element value
 const getNewVal = (currentVal, neighbors, totalNeighborCount) => {
   if (!currentVal) {
     if (neighbors.filter(n => n === 2).length === 2) {
