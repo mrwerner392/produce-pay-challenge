@@ -14,31 +14,8 @@ const evolve = grid => {
     for (let j = 0; j < grid.length; j++) {
       const currentVal = grid[i][j]
       const { neighbors, totalNeighborCount } = getNeighborData(grid, i, j)
-      let newVal
       
-      if (!currentVal) {
-        if (neighbors.filter(n => n === 2).length === 2) {
-          newVal = 1
-        } else {
-          newVal = 0
-        }
-      } else if (currentVal === 1) {
-        if (totalNeighborCount >= 5 || totalNeighborCount <= 1) {
-          newVal = 0
-        } else {
-          newVal = 2
-        }
-      } else if (currentVal === 2) {
-        if (totalNeighborCount >= 3 || totalNeighborCount === 0) {
-          newVal = 0
-        } else {
-          newVal = 3
-        }
-      } else if (currentVal === 3) {
-        newVal = 0
-      }
-
-      newGrid[i][j] = newVal
+      newGrid[i][j] = getNewVal(currentVal, neighbors, totalNeighborCount)
     }
   }
 
@@ -66,6 +43,30 @@ const getNeighborData = (grid, currentRow, currentIndex) => {
   }
 
   return { neighbors, totalNeighborCount }
+}
+
+const getNewVal = (currentVal, neighbors, totalNeighborCount) => {
+  if (!currentVal) {
+    if (neighbors.filter(n => n === 2).length === 2) {
+      return 1
+    } else {
+      return 0
+    }
+  } else if (currentVal === 1) {
+    if (totalNeighborCount >= 5 || totalNeighborCount <= 1) {
+      return 0
+    } else {
+      return 2
+    }
+  } else if (currentVal === 2) {
+    if (totalNeighborCount >= 3 || totalNeighborCount === 0) {
+      return 0
+    } else {
+      return 3
+    }
+  } else if (currentVal === 3) {
+    return 0
+  }
 }
 
 module.exports = evolve
