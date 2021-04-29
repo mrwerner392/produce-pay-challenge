@@ -13,7 +13,7 @@ const evolve = grid => {
   for (let i = 0; i < grid.length; i++) {
     for (let j = 0; j < grid.length; j++) {
       const currentVal = grid[i][j]
-      const neighbors = []
+      const neighborCounts = {}
       let newVal
 
       // iterate through surrounding indexes and add to list of neighbors
@@ -22,11 +22,13 @@ const evolve = grid => {
           if (k === 0 && l === 0) continue // this is the current element, ignore
           const row = i + k
           const col = j + l
+          let neighborVal
           if (!grid[row] || !grid[row][col]) {
-            neighbors.push(0)
+            neighborVal = 0
           } else {
-            neighbors.push(grid[row][col])
+            neighborVal = grid[row][col]
           }
+          neighborCounts[neighborVal] ? neighborCounts[neighborVal]++ : neighborCounts[neighborVal] = 1
         }
       }
       
