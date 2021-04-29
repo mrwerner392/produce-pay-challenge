@@ -39,7 +39,11 @@ const evolve = grid => {
           newVal = 0
         }
       } else if (currentVal === 1) {
-
+        if (totalNeighborCount >= 5 || totalNeighborCount <= 1) {
+          newVal = 0
+        } else {
+          newVal = 2
+        }
       } else if (currentVal === 2) {
 
       } else if (currentVal === 3) {
