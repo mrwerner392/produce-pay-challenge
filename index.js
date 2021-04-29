@@ -1,3 +1,17 @@
+const EVOLUTIONS = 19 // if input is generation 1, this will give generation 20
+const GRID = [
+  [0,0,0,0,0,0,0,0,0,0],
+  [0,0,1,1,0,0,0,0,0,0],
+  [0,0,0,0,2,0,0,0,0,0],
+  [0,0,0,1,2,0,0,0,0,0],
+  [0,0,0,0,0,0,0,0,0,0],
+  [0,0,1,0,0,0,0,0,0,0],
+  [0,2,1,0,0,0,0,0,0,0],
+  [0,2,0,0,0,0,0,0,0,0],
+  [0,0,0,0,0,0,0,0,0,0],
+  [0,0,0,0,0,0,0,0,0,0],
+]
+
 // handle one single evolution. call repeatedly to get future evolutions
 const evolve = grid => {
   // define and build new grid to hold the new values
@@ -69,5 +83,12 @@ const getNewVal = (currentVal, neighbors, totalNeighborCount) => {
     return 0
   }
 }
+
+let result = GRID
+for (let i = 1; i <= EVOLUTIONS; i++) {
+  result = evolve(result)
+}
+
+console.table(result)
 
 module.exports = evolve
