@@ -51,7 +51,7 @@ const evolve = grid => {
           newVal = 3
         }
       } else if (currentVal === 3) {
-
+        newVal = 0
       }
     }
   }
