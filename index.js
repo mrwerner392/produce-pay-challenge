@@ -14,7 +14,7 @@ const evolve = grid => {
     for (let j = 0; j < grid.length; j++) {
       const currentVal = grid[i][j]
       const neighbors = []
-      const totalNeighborCount = 0
+      let totalNeighborCount = 0
       let newVal
 
       // iterate through surrounding indexes and add to list of neighbors
