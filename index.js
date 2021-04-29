@@ -33,7 +33,11 @@ const evolve = grid => {
       }
       
       if (!currentVal) {
-
+        if (neighbors.filter(n => n === 2).length === 2) {
+          newVal = 1
+        } else {
+          newVal = 0
+        }
       } else if (currentVal === 1) {
 
       } else if (currentVal === 2) {
