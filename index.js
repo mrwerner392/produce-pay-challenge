@@ -53,10 +53,13 @@ const evolve = grid => {
       } else if (currentVal === 3) {
         newVal = 0
       }
+
+      newGrid[i][j] = newVal
     }
   }
 
   // return new grid
+  return newGrid
 }
 
 module.exports = evolve
