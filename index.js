@@ -13,24 +13,8 @@ const evolve = grid => {
   for (let i = 0; i < grid.length; i++) {
     for (let j = 0; j < grid.length; j++) {
       const currentVal = grid[i][j]
-      const neighbors = []
-      let totalNeighborCount = 0
+      const { neighbors, totalNeighborCount } = getNeighborData(grid, i, j)
       let newVal
-
-      // iterate through surrounding indexes and add to list of neighbors
-      for (let k = -1; k <= 1; k++) {
-        for (let l = -1; l <= 1; l++) {
-          if (k === 0 && l === 0) continue // this is the current element, ignore
-          const row = i + k
-          const col = j + l
-          if (!grid[row] || !grid[row][col]) {
-            neighbors.push(0)
-          } else {
-            neighbors.push(grid[row][col])
-            totalNeighborCount++
-          }
-        }
-      }
       
       if (!currentVal) {
         if (neighbors.filter(n => n === 2).length === 2) {
@@ -60,6 +44,28 @@ const evolve = grid => {
 
   // return new grid
   return newGrid
+}
+
+const getNeighborData = (grid, currentRow, currentIndex) => {
+  const neighbors = []
+  let totalNeighborCount = 0
+
+  // iterate through surrounding indexes and add to list of neighbors
+  for (let k = -1; k <= 1; k++) {
+    for (let l = -1; l <= 1; l++) {
+      if (k === 0 && l === 0) continue // this is the current element, ignore
+      const row = currentRow + k
+      const col = currentIndex + l
+      if (!grid[row] || !grid[row][col]) {
+        neighbors.push(0)
+      } else {
+        neighbors.push(grid[row][col])
+        totalNeighborCount++
+      }
+    }
+  }
+
+  return { neighbors, totalNeighborCount }
 }
 
 module.exports = evolve
